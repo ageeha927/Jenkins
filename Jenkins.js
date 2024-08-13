@@ -782,24 +782,23 @@ const data = [
     "BFBFFFFRLL",
 ];
 // variables
-rmax = 127
-rmin = 0
-cmax = 7
-cmin = 0
+let rmax = 127
+let rmin = 0
+let cmax = 7
+let cmin = 0
+position = "FBFBBFFRLR"
+grid = []
 
 data.forEach((position) => {
-    // console.log(position)
     for(char of position){
-        // console.log(char)
-        if(char == 'F')
-            rmax = Math.floor(rmax + rmin / 2)
-        else if(char == 'B')
-            rmin = Math.ceil(rmax + rmin / 2)
-        else if(char == 'R')
-            cmax = (cmax + cmin / 2)
-        else if(char == 'L')
-            cmin = (cmax + cmin / 2)
+        if(char === 'F')
+            rmax = Math.floor((rmax + rmin)/2)
+        if(char === 'B')
+            rmin = Math.ceil((rmax + rmin)/2)
+        if(char === 'R')
+            cmin = Math.ceil((cmax + cmin)/2)
+        if(char === 'L')
+            cmax = Math.floor((cmax + cmin)/2)
+        (grid).append(((rmax * 8) + cmax));
     }
 })
-console.log(rmax)
-
