@@ -782,14 +782,13 @@ const data = [
     "BFBFFFFRLL",
 ];
 // variables
-let rmax = 127
-let rmin = 0
-let cmax = 7
-let cmin = 0
-position = "FBFBBFFRLR"
-grid = []
 
+grid = []
 data.forEach((position) => {
+    let rmax = 127
+    let rmin = 0
+    let cmax = 7
+    let cmin = 0
     for(char of position){
         if(char === 'F')
             rmax = Math.floor((rmax + rmin)/2)
@@ -799,6 +798,8 @@ data.forEach((position) => {
             cmin = Math.ceil((cmax + cmin)/2)
         if(char === 'L')
             cmax = Math.floor((cmax + cmin)/2)
-        (grid).append(((rmax * 8) + cmax));
     }
+    grid.push((rmax * 8) + cmax)
 })
+console.log(grid)
+console.log(Math.min.apply(null, grid), Math.max.apply(null, grid))
