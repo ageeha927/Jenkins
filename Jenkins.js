@@ -781,7 +781,7 @@ const data = [
     "FBFBFBFLRR",
     "BFBFFFFRLL",
 ];
-// variables
+// task 1
 
 grid = []
 data.forEach((position) => {
@@ -803,3 +803,51 @@ data.forEach((position) => {
 })
 console.log(grid)
 console.log(Math.min.apply(null, grid), Math.max.apply(null, grid))
+
+// task 2
+let min = Math.min.apply(null, grid);
+let max = Math.max.apply(null, grid);
+
+const isSquareMissing = (num) => !grid.includes(num);
+
+let missingSquares = [];
+for (let i = min; i <= max; i++) {
+    if (isSquareMissing(i)) 
+        missingSquares.push(i)
+}
+
+console.log(missingSquares);
+
+// task 3
+let median = 441.5
+let missing = 517
+let coords = ""
+
+let rmax = 127
+let rmin = 0
+let cmax = 7
+let cmin = 0
+
+while (rmin!=rmax){
+    if(median > missing){
+        coords += "B"
+        Math.ceil(median)
+    }
+    if(median < missing){
+        coords += "F"
+        Math.floor(median)
+    }
+    break
+}
+while (cmin!=cmax){
+    if(median < missing){
+        coords += "R"
+        Math.ceil(median)
+    }
+    if(median < missing){
+        coords += "L"
+        Math.floor(median)
+    }
+    break
+}
+console.log(coords)
