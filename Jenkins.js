@@ -856,11 +856,10 @@ grid.forEach(square => {
     cols.push(col)
 })
 
-const rowSum = rows.reduce((acc, val) => acc + val, 0)
-const colSum = cols.reduce((acc, val) => acc + val, 0)
-
-const code = (rowSum * colSum).toString()
-const sixDigitCode = code.length >= 6 ? code.slice(-6).padStart(6, '0') : code.padStart(6, '0')
+let rowSum = rows.reduce((acc, val) => acc + val, 0)
+let colSum = cols.reduce((acc, val) => acc + val, 0)
+let code = (rowSum * colSum).toString()
+let sixDigitCode = code.length >= 6 ? code.slice(-6).padStart(6, '0') : code.padStart(6, '0')
 
 console.log('Rows:', rows)
 console.log('Columns:', cols)
