@@ -781,73 +781,87 @@ const data = [
     "FBFBFBFLRR",
     "BFBFFFFRLL",
 ];
-// task 1
-
-grid = []
+// Task 1
+let grid = []
 data.forEach((position) => {
     let rmax = 127
     let rmin = 0
     let cmax = 7
     let cmin = 0
-    for(char of position){
-        if(char === 'F')
-            rmax = Math.floor((rmax + rmin)/2)
-        if(char === 'B')
-            rmin = Math.ceil((rmax + rmin)/2)
-        if(char === 'R')
-            cmin = Math.ceil((cmax + cmin)/2)
-        if(char === 'L')
-            cmax = Math.floor((cmax + cmin)/2)
+    for (char of position) {
+        if (char === 'F') rmax = Math.floor((rmax + rmin) / 2)
+        if (char === 'B') rmin = Math.ceil((rmax + rmin) / 2)
+        if (char === 'R') cmin = Math.ceil((cmax + cmin) / 2)
+        if (char === 'L') cmax = Math.floor((cmax + cmin) / 2)
     }
-    grid.push((rmax * 8) + cmax)
+    grid.push((rmin * 8) + cmin)
 })
 console.log(grid)
-console.log(Math.min.apply(null, grid), Math.max.apply(null, grid))
+console.log('Lowest Square:', Math.min(...grid))
+console.log('Highest Square:', Math.max(...grid))
 
-// task 2
-let min = Math.min.apply(null, grid);
-let max = Math.max.apply(null, grid);
+// Task 2
+let min = Math.min(...grid)
+let max = Math.max(...grid)
 
-const isSquareMissing = (num) => !grid.includes(num);
+const isSquareMissing = (num) => !grid.includes(num)
 
-let missingSquares = [];
+let missingSquares = []
 for (let i = min; i <= max; i++) {
-    if (isSquareMissing(i)) 
-        missingSquares.push(i)
+    if (isSquareMissing(i)) missingSquares.push(i)
 }
+console.log('Missing Squares:', missingSquares)
 
-console.log(missingSquares);
-
-// task 3
+// Task 3
 let median = 441.5
 let missing = 517
-let coords = ""
+let coords = ''
 
 let rmax = 127
 let rmin = 0
 let cmax = 7
 let cmin = 0
 
-while (rmin!=rmax){
-    if(median > missing){
-        coords += "B"
-        Math.ceil(median)
+while (rmin !== rmax) {
+    if (median > missing) {
+        coords += 'B'
+        rmax = Math.floor((rmax + rmin) / 2)
+    } else if (median < missing) {
+        coords += 'F'
+        rmin = Math.ceil((rmax + rmin) / 2)
     }
-    if(median < missing){
-        coords += "F"
-        Math.floor(median)
-    }
-    break
 }
-while (cmin!=cmax){
-    if(median < missing){
-        coords += "R"
-        Math.ceil(median)
+
+while (cmin !== cmax) {
+    if (median > missing) {
+        coords += 'L'
+        cmax = Math.floor((cmax + cmin) / 2)
+    } else if (median < missing) {
+        coords += 'R'
+        cmin = Math.ceil((cmax + cmin) / 2)
     }
-    if(median < missing){
-        coords += "L"
-        Math.floor(median)
-    }
-    break
 }
-console.log(coords)
+
+console.log('Coordinates:', coords)
+
+// Task 4
+let rows = []
+let cols = []
+
+grid.forEach(square => {
+    const row = Math.floor(square / 8)
+    const col = square % 8
+
+    rows.push(row)
+    cols.push(col)
+})
+
+const rowSum = rows.reduce((acc, val) => acc + val, 0)
+const colSum = cols.reduce((acc, val) => acc + val, 0)
+
+const code = (rowSum * colSum).toString()
+const sixDigitCode = code.length >= 6 ? code.slice(-6).padStart(6, '0') : code.padStart(6, '0')
+
+console.log('Rows:', rows)
+console.log('Columns:', cols)
+console.log('6-digit Code:', sixDigitCode)
